@@ -18,11 +18,17 @@ import './Main.scss'
 import { getUsers } from '../../actions/users'
 
 class Main extends Component {
+  componentDidMount = () => {
+    this.props.getUsers()
+  }
+
   render() {
+    const { users } = this.props
+    console.log(this.props)
     return (
       <Layout>
         <div className="main-wrapper">
-          <SideBar />
+          <SideBar users={users} />
         </div>
       </Layout>
     )
@@ -30,10 +36,12 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.users,
+  users: state.users.users,
 })
 
-const mapDispatchToProps = dispatch => () => dispatch(getUsers())
+const mapDispatchToProps = dispatch => ({
+  getUsers: () => dispatch(getUsers()),
+})
 
 export default connect(
   mapStateToProps,

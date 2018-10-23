@@ -6,15 +6,9 @@ export default class Layout extends Component {
   render() {
     return (
       <div className="layout">
-        <header className="layout-header">
-          CRA starter kit
-        </header>
-        <section className="layout-content">
-          {this.props.children}
-        </section>
-        <footer className="layout-footer">
-          Footer
-        </footer>
+        <header className="layout-header">Incode Clients List</header>
+        <section className="layout-content">{this.props.children}</section>
+        <footer className="layout-footer">&copy; Alex_Sandok 2018</footer>
       </div>
     )
   }
@@ -23,6 +17,3 @@ export default class Layout extends Component {
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
-
-
-
