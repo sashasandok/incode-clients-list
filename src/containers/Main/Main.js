@@ -16,7 +16,7 @@ import Layout from '../../HOC/Layout/Layout'
 import './Main.css'
 
 // actions
-import { getClients } from '../../actions/clients'
+import { getClients, filterClients } from '../../actions/clients'
 
 class Main extends Component {
   state = {
@@ -31,15 +31,25 @@ class Main extends Component {
     this.setState({ clientId: id })
   }
 
+  onInputChange = evt => {
+    this.props.filterClients(evt.target.value)
+    console.log(evt.target.value)
+  }
+
   render() {
-    const { clients } = this.props
+    const { clients, searchResult } = this.props
 
     return (
       <Layout>
         <div className="main-wrapper">
           <div className="sidebar">
             <div className="search-input">
-              <Input icon="search" />
+              <Input
+                icon="search"
+                onChange={this.onInputChange}
+                placeholder="search"
+              />
+              {searchResult}
             </div>
             <div>
               {clients.map((client, index) => {
@@ -83,13 +93,13 @@ class Main extends Component {
                   </div>
                   <div className="card-contacts">
                     <h2>address</h2>
-                    <span>{client.country}</span>
-                    <span>{client.city}</span>
-                    <span>{client.street}</span>
-                    <span>{client.zipCode}</span>
+                    <span>country: {client.country}</span>
+                    <span>city: {client.city}</span>
+                    <span>street: {client.street}</span>
+                    <span>zip code: {client.zipCode}</span>
                     <h2>contacts</h2>
-                    <span>{client.phone}</span>
-                    <span>{client.email}</span>
+                    <span>phone: {client.phone}</span>
+                    <span>email: {client.email}</span>
                   </div>
                 </div>
               )
@@ -101,19 +111,22 @@ class Main extends Component {
   }
 }
 
-const mapStateToProps = (state, id) => ({
+const mapStateToProps = state => ({
   clients: state.clients.clients,
-  client: state.clients.clients.find(i => i.id === id) || {},
+  searchResult: state.clients.result,
 })
 
 const mapDispatchToProps = dispatch => ({
   getClients: () => dispatch(getClients()),
+  filterClients: () => dispatch(filterClients()),
 })
 
 Main.propTypes = {
   getClients: PropTypes.func.isRequired,
+  filterClients: PropTypes.func.isRequired,
   clients: PropTypes.instanceOf(Array),
   client: PropTypes.instanceOf(Object),
+  searchResult: PropTypes.string.isRequired,
 }
 
 export default connect(
