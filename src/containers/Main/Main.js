@@ -1,10 +1,10 @@
 // react
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import { Link } from 'react-router-dom'
 
 //redux
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 // semantic-ui
 import { Image, Input } from 'semantic-ui-react'
@@ -49,31 +49,57 @@ class Main extends Component {
                 onChange={this.onInputChange}
                 placeholder="search"
               />
-              {searchResult}
             </div>
             <div>
-              {clients.map((client, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="client-item"
-                    onClick={() => this.onClientClick(client.id)}
-                  >
-                    <Image
-                      alt="Image"
-                      src={client.avatar}
-                      width={50}
-                      height={50}
-                    />
-                    <p className="client-name">
-                      <span>
-                        {client.firstName} {client.lastName}
-                      </span>
-                      <span>{client.title}</span>
-                    </p>
-                  </div>
-                )
-              })}
+              {searchResult.length === 0
+                ? clients.map((client, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="client-item"
+                      onClick={() => this.onClientClick(client.id)}
+                    >
+                      <Image
+                        alt="Image"
+                        src={client.avatar}
+                        width={50}
+                        height={50}
+                      />
+                      <p className="client-name">
+                        <span>
+                          {client.firstName} {client.lastName}
+                        </span>
+                        <span>{client.title}</span>
+                      </p>
+                    </div>
+                  )
+                })
+                : clients
+                  .filter(i => {
+                    return i.firstName.toLowerCase().includes(searchResult)
+                  })
+                  .map((client, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="client-item"
+                        onClick={() => this.onClientClick(client.id)}
+                      >
+                        <Image
+                          alt="Image"
+                          src={client.avatar}
+                          width={50}
+                          height={50}
+                        />
+                        <p className="client-name">
+                          <span>
+                            {client.firstName} {client.lastName}
+                          </span>
+                          <span>{client.title}</span>
+                        </p>
+                      </div>
+                    )
+                  })}
             </div>
           </div>
           <div className="info-block">
@@ -116,10 +142,14 @@ const mapStateToProps = state => ({
   searchResult: state.clients.result,
 })
 
-const mapDispatchToProps = dispatch => ({
-  getClients: () => dispatch(getClients()),
-  filterClients: () => dispatch(filterClients()),
-})
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getClients,
+      filterClients,
+    },
+    dispatch,
+  )
 
 Main.propTypes = {
   getClients: PropTypes.func.isRequired,
