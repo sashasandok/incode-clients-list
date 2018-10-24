@@ -1,0 +1,126 @@
+.main-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  min-width: 100%;
+  font-family: inherit;
+}
+
+/* sidebar */
+
+.sidebar {
+  flex: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 350px;
+  min-height: 507px;
+  background-color: rgb(58, 58, 58);
+  color: white;
+  z-index: 500;
+  border-radius: 7px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.search-input {
+  border-radius: 8px;
+}
+
+.client-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  margin: 7px;
+  border: 0.5px solid rgb(71, 71, 71);
+  border-radius: 5px;
+}
+
+.client-item:hover {
+  border: 0.5px solid rgb(255, 124, 1);
+  background-color: rgb(71, 71, 71);
+}
+
+.client-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: baseline;
+  margin-left: 10px;
+  max-width: 200px;
+}
+
+.client-name span {
+  text-align: center;
+  font-size: 12px;
+  min-width: 200px;
+}
+
+/* client info */
+
+.info-block {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1 0 auto;
+  height: 507px;
+  margin: 23px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 60%;
+  min-height: 400px;
+  background-color: rgb(214, 214, 214);
+  border: 1px solid rgb(172, 172, 172);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 30px;
+  box-shadow: 3px 3px 5px rgb(110, 108, 108);
+  font-size: 14px;
+}
+
+.card-client-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+  align-items: flex-start;
+}
+
+.card-client-name div {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: flex-start;
+  margin-left: 20px;
+}
+
+.card-client-name div h1 {
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.card-client-name div p {
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.card-contacts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  min-height: 100px;
+}
+
+.card-contacts h2 {
+  margin-bottom: 5px;
+}
+
+.card-contacts span {
+  margin-bottom: 5px;
+}

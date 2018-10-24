@@ -2,29 +2,29 @@
 import { handleActions } from 'redux-actions'
 
 // Actions
-import actions from '../actions/users'
+import actions from '../actions/clients'
 
 export const initialState = {
   isFetching: false,
   error: '',
-  users: [],
+  clients: [],
 }
 
 export default handleActions(
   {
-    [actions.users.request]: state => ({
+    [actions.clients.request]: state => ({
       ...state,
       isFetching: true,
       error: '',
     }),
 
-    [actions.users.success]: (state, { payload }) => ({
+    [actions.clients.success]: (state, { payload }) => ({
       ...state,
       isFetching: false,
-      users: payload.users,
+      clients: payload.clients,
     }),
 
-    [actions.users.error]: (state, { payload }) => ({
+    [actions.clients.error]: (state, { payload }) => ({
       ...state,
       isFetching: false,
       error: payload.error,
