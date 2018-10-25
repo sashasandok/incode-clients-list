@@ -76,7 +76,10 @@ class Main extends Component {
                 })
                 : clients
                   .filter(i => {
-                    return i.firstName.toLowerCase().includes(searchResult)
+                    const searchStr = `${i.firstName} ${i.lastName} ${
+                      i.title
+                    }`
+                    return searchStr.toLowerCase().includes(searchResult)
                   })
                   .map((client, index) => {
                     return (
