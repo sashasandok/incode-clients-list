@@ -7,7 +7,7 @@ import actions from '../actions/clients'
 export const initialState = {
   isFetching: false,
   error: '',
-  clients: [],
+  items: [],
   result: '',
 }
 
@@ -16,7 +16,7 @@ export default handleActions(
     [actions.clients.success]: (state, { payload }) => ({
       ...state,
       isFetching: false,
-      clients: payload.clients,
+      items: payload.clients,
     }),
 
     [actions.clients.error]: (state, { payload }) => ({

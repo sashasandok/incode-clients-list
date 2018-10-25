@@ -15,12 +15,18 @@ import Layout from '../../HOC/Layout/Layout'
 // styles
 import './Main.css'
 
+// selectors
+import { getClientList, getClientById } from '../../selectors/clientsSelector'
+
 // actions
 import { getClients, filterClients } from '../../actions/clients'
 
+// components
+import ClientInfo from '../../components/ClientInfo/ClientInfo'
+
 class Main extends Component {
   state = {
-    clientId: null,
+    clientId: '',
   }
 
   componentDidMount = () => {
@@ -38,18 +44,19 @@ class Main extends Component {
 
   render() {
     const { clients, searchResult } = this.props
-
     return (
       <Layout>
         <div className="main-wrapper">
           <div className="sidebar">
-            <div className="search-input">
+            <span className="search-input">
               <Input
                 icon="search"
                 onChange={this.onInputChange}
                 placeholder="search"
+                fluid
+                transparent={true}
               />
-            </div>
+            </span>
             <div>
               {searchResult.length === 0
                 ? clients.map((client, index) => {
@@ -65,12 +72,12 @@ class Main extends Component {
                         width={50}
                         height={50}
                       />
-                      <p className="client-name">
-                        <span>
+                      <span className="client-name">
+                        <h3>
                           {client.firstName} {client.lastName}
-                        </span>
+                        </h3>
                         <span>{client.title}</span>
-                      </p>
+                      </span>
                     </div>
                   )
                 })
@@ -105,35 +112,11 @@ class Main extends Component {
                   })}
             </div>
           </div>
-          <div className="info-block">
-            {clients.filter(i => i.id === this.state.clientId).map(client => {
-              return (
-                <div className="card" key={client.id}>
-                  <div className="card-client-name">
-                    <Image src={client.avatar} width={128} height={128} />
-                    <div>
-                      <h1>
-                        {client.firstName} {client.lastName}
-                      </h1>
-                      <p>
-                        {client.title}-{client.company}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="card-contacts">
-                    <h2>address</h2>
-                    <span>country: {client.country}</span>
-                    <span>city: {client.city}</span>
-                    <span>street: {client.street}</span>
-                    <span>zip code: {client.zipCode}</span>
-                    <h2>contacts</h2>
-                    <span>phone: {client.phone}</span>
-                    <span>email: {client.email}</span>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+          <ClientInfo
+            clients={clients}
+            clientId={this.state.clientId}
+            client={this.props.client}
+          />
         </div>
       </Layout>
     )
@@ -141,7 +124,8 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  clients: state.clients.clients,
+  clients: getClientList(state),
+  client: getClientById(state.clientId),
   searchResult: state.clients.result,
 })
 
