@@ -12,9 +12,11 @@ import mapper from '../mappers/clients'
 
 const actions = createActions({
   clients: {
+    request: x => x,
     success: x => x,
     error: x => x,
     filter: {
+      request: x => x,
       success: x => x,
       error: x => x,
     },
@@ -25,7 +27,7 @@ export default actions
 
 export const getClients = () => async dispatch => {
   const clients = data.map(mapper)
-  // console.log(clients)
+  dispatch(actions.clients.request())
   try {
     dispatch(
       actions.clients.success({
@@ -39,6 +41,7 @@ export const getClients = () => async dispatch => {
 }
 
 export const filterClients = value => async dispatch => {
+  dispatch(actions.clients.filter.request())
   try {
     dispatch(
       actions.clients.filter.success({

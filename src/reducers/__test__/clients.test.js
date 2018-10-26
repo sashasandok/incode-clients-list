@@ -5,8 +5,6 @@ import actions from '../../actions/clients'
 // data
 import data from '../../clients.json'
 
-console.log('actions', actions)
-
 describe('client reducer', () => {
   it('has initial state', () => {
     const initialState = reducer(undefined, { type: undefined })

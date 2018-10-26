@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 // semantic-ui
-import { Image, Input } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 
 // hoc's
 import Layout from '../../HOC/Layout/Layout'
@@ -16,13 +16,16 @@ import Layout from '../../HOC/Layout/Layout'
 import './Main.css'
 
 // selectors
-import { getClientList, getClientById } from '../../selectors/clientsSelector'
+import {
+  getClientList,
+  getClientSearchResult,
+} from '../../selectors/clientsSelector'
 
 // actions
 import { getClients, filterClients } from '../../actions/clients'
 
 // components
-import ClientInfo from '../../components/ClientInfo/ClientInfo'
+import ClientInfo from '../ClientInfo/ClientInfo'
 
 class Main extends Component {
   state = {
@@ -33,13 +36,19 @@ class Main extends Component {
     this.props.getClients()
   }
 
+  componentDidUpdate = () => {
+    if (!this.state.clientId) {
+      const clientId = this.props.clients[0] && this.props.clients[0].id
+      this.setState({ clientId: clientId })
+    }
+  }
+
   onClientClick = id => {
     this.setState({ clientId: id })
   }
 
   onInputChange = evt => {
     this.props.filterClients(evt.target.value)
-    console.log(evt.target.value)
   }
 
   render() {
@@ -48,22 +57,23 @@ class Main extends Component {
       <Layout>
         <div className="main-wrapper">
           <div className="sidebar">
-            <span className="search-input">
-              <Input
-                icon="search"
-                onChange={this.onInputChange}
-                placeholder="search"
-                fluid
-                transparent={true}
-              />
-            </span>
+            <input
+              className="search-input"
+              onChange={this.onInputChange}
+              placeholder="search"
+            />
+
             <div>
               {searchResult.length === 0
                 ? clients.map((client, index) => {
                   return (
                     <div
                       key={index}
-                      className="client-item"
+                      className={
+                        this.state.clientId === client.id
+                          ? 'client-item-selected'
+                          : 'client-item'
+                      }
                       onClick={() => this.onClientClick(client.id)}
                     >
                       <Image
@@ -112,11 +122,7 @@ class Main extends Component {
                   })}
             </div>
           </div>
-          <ClientInfo
-            clients={clients}
-            clientId={this.state.clientId}
-            client={this.props.client}
-          />
+          <ClientInfo clientId={this.state.clientId} selected={clients[0]} />
         </div>
       </Layout>
     )
@@ -125,8 +131,7 @@ class Main extends Component {
 
 const mapStateToProps = state => ({
   clients: getClientList(state),
-  client: getClientById(state.clientId),
-  searchResult: state.clients.result,
+  searchResult: getClientSearchResult(state),
 })
 
 const mapDispatchToProps = dispatch =>
@@ -142,7 +147,6 @@ Main.propTypes = {
   getClients: PropTypes.func.isRequired,
   filterClients: PropTypes.func.isRequired,
   clients: PropTypes.instanceOf(Array),
-  client: PropTypes.instanceOf(Object),
   searchResult: PropTypes.string.isRequired,
 }
 

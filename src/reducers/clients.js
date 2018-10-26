@@ -13,6 +13,12 @@ export const initialState = {
 
 export default handleActions(
   {
+    [actions.clients.request]: state => ({
+      ...state,
+      isFetching: true,
+      error: '',
+    }),
+
     [actions.clients.success]: (state, { payload }) => ({
       ...state,
       isFetching: false,
@@ -23,6 +29,12 @@ export default handleActions(
       ...state,
       isFetching: false,
       error: payload.error,
+    }),
+
+    [actions.clients.filter.request]: state => ({
+      ...state,
+      isFetching: true,
+      error: '',
     }),
 
     [actions.clients.filter.success]: (state, { payload }) => ({
