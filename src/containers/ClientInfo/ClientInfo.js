@@ -5,9 +5,6 @@ import PropTypes from 'prop-types'
 //redux
 import { connect } from 'react-redux'
 
-// semantic-ui
-import { Image } from 'semantic-ui-react'
-
 import { getClientById } from '../../selectors/clientsSelector'
 
 // styles
@@ -23,7 +20,7 @@ class ClientInfo extends Component {
       <div className="info-block">
         <div className="card" key={client.id}>
           <div className="card-client-name">
-            <Image src={client.avatar} width={128} height={128} />
+            <img src={client?.avatar} alt="Avatar" />
             <div>
               <h1>
                 {client.firstName} {client.lastName}

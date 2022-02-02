@@ -1,8 +1,8 @@
-import uuidv1 from 'uuid'
+import { v4 } from 'uuid'
 
 export default client => {
   return {
-    id: uuidv1(),
+    id: v4(),
     firstName: client.general.firstName,
     lastName: client.general.lastName,
     avatar: client.general.avatar,

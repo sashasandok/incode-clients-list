@@ -6,9 +6,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-// semantic-ui
-import { Image } from 'semantic-ui-react'
-
 // hoc's
 import Layout from '../../HOC/Layout/Layout'
 
@@ -76,12 +73,7 @@ class Main extends Component {
                       }
                       onClick={() => this.onClientClick(client.id)}
                     >
-                      <Image
-                        alt="Image"
-                        src={client.avatar}
-                        width={50}
-                        height={50}
-                      />
+                      <img src={client.avatar} alt="" />
                       <span className="client-name">
                         <h3>
                           {client.firstName} {client.lastName}
@@ -105,12 +97,7 @@ class Main extends Component {
                         className="client-item"
                         onClick={() => this.onClientClick(client.id)}
                       >
-                        <Image
-                          alt="Image"
-                          src={client.avatar}
-                          width={50}
-                          height={50}
-                        />
+                        <img alt="Avatar" src={client.avatar} />
                         <p className="client-name">
                           <span>
                             {client.firstName} {client.lastName}

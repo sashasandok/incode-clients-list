@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
+import { Switch ,Route , BrowserRouter as Router } from 'react-router-dom'
 
 // components
 import NoFound from '../components/NoFound/NoFound'
